@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: chronix-db
+    command: -c listen_addresses='*'
+    environment:
+      POSTGRES_USER: chronix
+      POSTGRES_PASSWORD: chronix
+      POSTGRES_DB: chronix
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - chronix
+    restart: unless-stopped
+
+networks:
+  chronix:
+    driver: bridge
+
+volumes:
+  postgres_data:
